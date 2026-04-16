@@ -1,0 +1,22 @@
+{
+  "app": {
+    "title": "MusicFlow",
+    "description": "Search, discover, and enjoy your favorite music."
+  },
+  "search": {
+    "queryPlaceholder": "Search for your favorite artist by name",
+    "queryLabel": "Search",
+    "generalError": "An error occurred while searching",
+    "success": "Search successful",
+    "searchButton": "Search",
+    "noResults": "No results found for \"{{query}}\"",
+    "resultsFound": "Results for \"{{query}}\"",
+    "viewArtist": "View Artist"
+  },
+  "common": {
+    "loading": "Loading...",
+    "dark": "Dark",
+    "light": "Light",
+    "system": "System"
+  }
+}
