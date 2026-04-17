@@ -34,7 +34,7 @@ const ArtistDetails = ({ artist }: { artist: Artist }) => {
                 srcSet={`${artist.imageSmall} 400w, ${artist.imageMedium} 800w, ${artist.image} 1200w`}
                 src={artist.image}
                 alt={artist.name}
-                className="w-full object-cover sm:sticky sm:top-4"
+                className="w-full object-cover sm:sticky sm:top-4 rounded-2xl"
               />
             )}
           </div>

@@ -418,4 +418,5 @@
 
 #artist-image {
   view-transition-name: artist-image;
+  border-radius: var(--radius-2xl);
 }
