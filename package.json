@@ -10,7 +10,9 @@
     "test:ui": "vitest --ui",
     "lint": "eslint .",
     "preview": "vite preview",
-    "prepare": "husky"
+    "prepare": "husky",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
@@ -29,6 +31,7 @@
     "axios": "^1.15.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "gh-pages": "^6.3.0",
     "i18next": "^25.8.14",
     "lucide-react": "^1.8.0",
     "next-themes": "^0.4.6",
