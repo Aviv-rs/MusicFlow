@@ -6,7 +6,7 @@
   "search": {
     "queryPlaceholder": "Search for your favorite artist by name",
     "queryLabel": "Search",
-    "generalError": "An error occurred while searching",
+    "generalError": "An error occurred while searching, please try again later",
     "success": "Search successful",
     "searchButton": "Search",
     "noResults": "No results found for \"{{query}}\"",
@@ -17,6 +17,14 @@
     "loading": "Loading...",
     "dark": "Dark",
     "light": "Light",
-    "system": "System"
+    "system": "System",
+    "readMore": "Read more",
+    "readLess": "Read less"
+  },
+  "artist": {
+    "topSongs": "Top Songs by {{artistName}}",
+    "backToSearch": "Search more artists",
+    "goBack": "Go back",
+    "artistDetailsTitle": "Meet the artist"
   }
 }
