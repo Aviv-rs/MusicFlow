@@ -48,16 +48,19 @@ const ArtistDetails = ({ artist }: { artist: Artist }) => {
               className="text-muted-foreground"
             />
 
-            <Separator />
-
-            <h3 className="text-2xl font-medium">
-              {t("artist.topSongs", { artistName: artist.name })}
-            </h3>
-            <ItemGroup className="space-y-4">
-              {artist.topSongs.map((song) => (
-                <SongPreview key={song.id} song={song} />
-              ))}
-            </ItemGroup>
+            {artist?.topSongs?.length > 0 && (
+              <>
+                <Separator />
+                <h3 className="text-2xl font-medium">
+                  {t("artist.topSongs", { artistName: artist.name })}
+                </h3>
+                <ItemGroup className="space-y-4">
+                  {artist.topSongs.map((song) => (
+                    <SongPreview key={song.id} song={song} />
+                  ))}
+                </ItemGroup>
+              </>
+            )}
           </div>
         </div>
       </div>

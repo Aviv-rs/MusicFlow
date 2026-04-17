@@ -1,10 +1,10 @@
 {
   "app": {
     "title": "MusicFlow",
-    "description": "Search, discover, and enjoy your favorite music."
+    "description": "Search your favorite artists and discover their top songs."
   },
   "search": {
-    "queryPlaceholder": "Search for your favorite artist by name",
+    "queryPlaceholder": "Search artist by name (e.g: 'Shakira')",
     "queryLabel": "Search",
     "generalError": "An error occurred while searching, please try again later",
     "success": "Search successful",
@@ -25,6 +25,7 @@
     "topSongs": "Top Songs by {{artistName}}",
     "backToSearch": "Search more artists",
     "goBack": "Go back",
-    "artistDetailsTitle": "Meet the artist"
+    "artistDetailsTitle": "Meet the artist",
+    "artistDetailsNotFound": "We couldn't find the artist you're looking for :("
   }
 }

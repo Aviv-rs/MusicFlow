@@ -98,10 +98,10 @@ export const ArtistSearchForm = ({
             disabled={!canSubmit}
             isLoading={isSubmitting}
             type="submit"
-            className="basis-1/5"
+            className="sm:basis-1/5 basis-1/7"
           >
             <span className="hidden sm:block">{t("search.searchButton")}</span>
-            <Search className="size-4" />
+            <Search className="size-4 " />
           </Button>
         )}
       />

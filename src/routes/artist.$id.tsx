@@ -42,9 +42,13 @@ function RouteComponent() {
     }
   };
 
-  if (!artist) return <div>Artist Details not found</div>;
   return (
     <div className="py-8 sm:py-16 lg:py-24 mx-auto max-w-7xl px-4 sm:px-6  lg:px-8">
+      {!artist && (
+        <h2 className="text-2xl font-semibold my-8">
+          {t("artist.artistDetailsNotFound")}
+        </h2>
+      )}
       <Button variant="link" className="h-fit mb-8" onClick={handleBack}>
         <ArrowLeft className="size-4" />
         {t(
@@ -53,7 +57,7 @@ function RouteComponent() {
             : "artist.backToSearch",
         )}
       </Button>
-      <ArtistDetails artist={artist} />
+      {artist && <ArtistDetails artist={artist} />}
     </div>
   );
 }
