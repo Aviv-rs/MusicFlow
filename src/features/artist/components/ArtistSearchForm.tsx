@@ -4,21 +4,19 @@ import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { toast } from "sonner";
 import { z } from "zod";
-import { useQueryClient } from "@tanstack/react-query";
-import { artistSearchQueryOptions } from "../api/artist.queries";
 import { Search } from "lucide-react";
 
 export const ArtistSearchForm = ({
+  query,
   className,
   onSubmit,
 }: {
+  query?: string;
   className?: string;
   onSubmit: (query: string) => void;
 }) => {
   const { t } = useTranslation();
-  const queryClient = useQueryClient();
 
   const formSchema = z.object({
     query: z.string().min(1),
@@ -39,22 +37,12 @@ export const ArtistSearchForm = ({
     validators: {
       onChange: formSchema,
       onSubmitAsync: async ({ value: formValues }) => {
-        try {
-          await queryClient.fetchQuery(
-            artistSearchQueryOptions(formValues.query),
-          );
-
-          onSubmit(formValues.query);
-          return null;
-        } catch (err) {
-          console.warn("Error while trying to search: ", err);
-          toast.error(t("search.generalError"), { richColors: true });
-          return t("search.generalError");
-        }
+        onSubmit(formValues.query);
+        return null;
       },
     },
     defaultValues: {
-      query: "",
+      query: query || "",
     },
   });
 

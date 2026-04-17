@@ -1,31 +1,67 @@
-import { ThemeToggle } from "@/components/ThemeToggle";
 import { AppHeader } from "@/components/AppHeader";
 import { ArtistSearchForm } from "@/features/artist/components/ArtistSearchForm";
-import { createFileRoute } from "@tanstack/react-router";
-import { useQueryClient } from "@tanstack/react-query";
+import {
+  createFileRoute,
+  stripSearchParams,
+  useNavigate,
+} from "@tanstack/react-router";
 import { artistSearchQueryOptions } from "@/features/artist/api/artist.queries";
-import { useState } from "react";
 import { ArtistSearchPreview } from "@/features/artist/components/ArtistSearchPreview";
 import { useTranslation } from "react-i18next";
+import { useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
+
+const defaultSearchParams = {
+  query: "",
+};
 
 export const Route = createFileRoute("/search")({
   component: RouteComponent,
+  validateSearch: (search: Record<string, unknown>): { query: string } => {
+    return {
+      query: (search.query as string) || "",
+    };
+  },
+  search: {
+    middlewares: [stripSearchParams(defaultSearchParams)],
+  },
+  loaderDeps: ({ search }) => [search.query],
+  loader: async ({ context, deps }) => {
+    const data = await context.queryClient.ensureQueryData(
+      artistSearchQueryOptions(deps[0]),
+    );
+    return { artistSearchResult: data.artists };
+  },
 });
 
 function RouteComponent() {
   const { t } = useTranslation();
-  const [query, setQuery] = useState("");
+  const { query } = Route.useSearch();
+  const navigate = useNavigate({ from: Route.fullPath });
+  const queryClient = useQueryClient();
+  const { artistSearchResult } = Route.useLoaderData();
 
-  const artistSearchResult = useQueryClient().getQueryData(
-    artistSearchQueryOptions(query).queryKey,
-  );
-  const hasArtistsResults =
-    artistSearchResult?.artists && artistSearchResult.artists.length > 0;
+  const hasArtistsResults = artistSearchResult && artistSearchResult.length > 0;
+
+  const handleSearchSubmit = async (query: string) => {
+    try {
+      await queryClient.fetchQuery(artistSearchQueryOptions(query));
+    } catch (err) {
+      console.warn("Error while trying to search: ", err);
+      toast.error(t("search.generalError"), { richColors: true });
+    }
+    navigate({ search: (prev) => ({ ...prev, query }) });
+  };
+
   return (
     <div className="sm:p-8 sm:pt-14 px-4 pt-8 max-w-4xl mx-auto">
-      <ThemeToggle className="absolute right-4 top-4" />
       <AppHeader />
-      <ArtistSearchForm className="mx-auto" onSubmit={setQuery} />
+      <ArtistSearchForm
+        className="mx-auto"
+        query={query}
+        onSubmit={handleSearchSubmit}
+      />
+
       {query && (
         <div className="mt-4">
           <h2 className="text-xl sm:text-2xl font-bold my-3.5">
@@ -34,7 +70,7 @@ function RouteComponent() {
             })}
           </h2>
           {hasArtistsResults &&
-            artistSearchResult?.artists?.map((artist) => (
+            artistSearchResult.map((artist) => (
               <ArtistSearchPreview key={artist.id} artist={artist} />
             ))}
         </div>
