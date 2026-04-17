@@ -5,7 +5,8 @@ import path from "path";
 import tailwindcss from "@tailwindcss/vite";
 
 // https://vite.dev/config/
-export default defineConfig({
+export default defineConfig(({ command }) => ({
+  base: command === "build" ? "/MusicFlow/" : "/",
   resolve: {
     alias: {
       "@": path.resolve("./src"),
@@ -24,4 +25,4 @@ export default defineConfig({
       },
     }),
   ],
-});
+}));

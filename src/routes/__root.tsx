@@ -19,18 +19,20 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <ThemeToggle className="absolute right-4 top-4" />
       <Outlet />
-      <TanStackDevtools
-        plugins={[
-          {
-            name: "TanStack Query",
-            render: <ReactQueryDevtoolsPanel />,
-          },
-          {
-            name: "TanStack Router",
-            render: <TanStackRouterDevtoolsPanel />,
-          },
-        ]}
-      />
+      {import.meta.env.DEV && (
+        <TanStackDevtools
+          plugins={[
+            {
+              name: "TanStack Query",
+              render: <ReactQueryDevtoolsPanel />,
+            },
+            {
+              name: "TanStack Router",
+              render: <TanStackRouterDevtoolsPanel />,
+            },
+          ]}
+        />
+      )}
     </QueryClientProvider>
   );
 }

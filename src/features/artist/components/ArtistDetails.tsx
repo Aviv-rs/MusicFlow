@@ -14,7 +14,10 @@ const ArtistDetails = ({ artist }: { artist: Artist }) => {
         <h2 className="text-2xl font-semibold sm:text-3xl lg:text-4xl flex items-center gap-4">
           <div className="p-3 rounded-full bg-bg-tertiary w-fit">
             <Avatar className="p-0" withInnerBorder={false}>
-              <AvatarImage alt="MusicFlow logo" src="/assets/images/logo.png" />
+              <AvatarImage
+                alt="MusicFlow logo"
+                src={`${import.meta.env.BASE_URL}assets/images/logo.png`}
+              />
             </Avatar>
           </div>
           {t("artist.artistDetailsTitle")}

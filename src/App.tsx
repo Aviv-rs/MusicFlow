@@ -14,6 +14,7 @@ function DefaultPending() {
 
 const router = createRouter({
   routeTree,
+  basepath: import.meta.env.BASE_URL,
   defaultPreload: "viewport",
   defaultPendingComponent: DefaultPending,
   defaultViewTransition: true,

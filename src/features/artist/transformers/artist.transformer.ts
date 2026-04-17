@@ -38,7 +38,7 @@ export const transformSong = (song: SongDto): Song => {
     ? song.strMusicVid.split("v=")[1]
     : null;
 
-  const imagePlaceholder = "/assets/images/song-placeholder.png";
+  const imagePlaceholder = `${import.meta.env.BASE_URL}assets/images/song-placeholder.png`;
   const image = youtubeVideoID
     ? `https://img.youtube.com/vi/${youtubeVideoID}/default.jpg`
     : imagePlaceholder;

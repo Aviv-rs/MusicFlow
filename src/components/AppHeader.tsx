@@ -8,7 +8,10 @@ export function AppHeader() {
     <header className="flex items-center flex-col">
       <div className="p-3 rounded-full mb-4 bg-bg-tertiary w-fit">
         <Avatar className="p-0" withInnerBorder={false}>
-          <AvatarImage alt="MusicFlow logo" src="/assets/images/logo.png" />
+          <AvatarImage
+            alt="MusicFlow logo"
+            src={`${import.meta.env.BASE_URL}assets/images/logo.png`}
+          />
         </Avatar>
       </div>
       <h1 className="text-3xl font-bold mb-1">{t("app.title")}</h1>
