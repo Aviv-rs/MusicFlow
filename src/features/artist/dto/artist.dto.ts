@@ -34,6 +34,7 @@ export interface ArtistDto {
   strLastFMChart: string;
   intCharted: string;
   strLocked: string;
+  strBiography: string;
 }
 
 export interface SongDto {
@@ -63,6 +64,7 @@ export interface SongDto {
   intScoreVotes: string;
   intTotalListeners: string;
   intTotalPlays: string;
+  strMusicVid: string;
   strMusicBrainzID: string;
   strMusicBrainzAlbumID: string;
   strMusicBrainzArtistID: string;

@@ -1,7 +1,12 @@
 import axios from "axios";
 import type { ArtistDto } from "../dto/artist.dto";
 import type { SongDto } from "../dto/artist.dto";
-import type { ArtistPreview, Song } from "../dto/artist.model";
+import type { Artist, ArtistPreview, Song } from "../dto/artist.model";
+import {
+  transformArtist,
+  transformArtistPreview,
+  transformSong,
+} from "../transformers/artist.transformer";
 
 const BASE_URL = "https://www.theaudiodb.com/api/v1/json/123";
 
@@ -16,26 +21,45 @@ export const artistApi = {
     if (!response.data.artists || response.data.artists.length === 0) {
       return { artists: null };
     }
-    const artists = response.data.artists.map((artist) => ({
-      id: artist.idArtist,
-      name: artist.strArtist,
-      image: artist.strArtistThumb + "/medium",
-    }));
+    const artists = response.data.artists.map(transformArtistPreview);
 
     return { artists };
+  },
+  getArtistDetails: async (
+    artistId: string,
+  ): Promise<{ artist: Artist | null }> => {
+    const artistResponsePromise = axios.get<{ artists: ArtistDto[] }>(
+      `${BASE_URL}/artist-mb.php?i=${artistId}`,
+    );
+
+    const topSongsResponsePromise = artistApi.getTopSongsForArtist(artistId);
+
+    const [artistResponse, topSongsResponse] = await Promise.all([
+      artistResponsePromise,
+      topSongsResponsePromise,
+    ]);
+
+    if (
+      !artistResponse.data.artists ||
+      artistResponse.data.artists.length === 0
+    ) {
+      return { artist: null };
+    }
+    const artist = artistResponse.data.artists[0];
+
+    return { artist: transformArtist(artist, topSongsResponse.songs) };
   },
   getTopSongsForArtist: async (
     artistId: string,
   ): Promise<{ songs: Song[] }> => {
-    const response = await axios.get<{ songs: SongDto[] }>(
+    const response = await axios.get<{ track: SongDto[] }>(
       `${BASE_URL}/track-top10-mb.php?s=${artistId}`,
     );
-    const songs = response.data.songs.map((song) => ({
-      id: song.idTrack,
-      name: song.strTrack,
-      album: song.strAlbum,
-      duration: song.intDuration,
-    }));
+
+    if (!response.data.track || response.data.track.length === 0) {
+      return { songs: [] };
+    }
+    const songs = response.data.track.map(transformSong);
 
     return { songs };
   },

@@ -9,9 +9,14 @@ export interface Song {
   name: string;
   album: string;
   duration: string;
+  youtubeLink?: string;
+  image?: string;
 }
 
 export interface Artist extends ArtistPreview {
+  imageSmall: string;
+  imageMedium: string;
   biography: string;
+  genre: string;
   topSongs: Song[];
 }
