@@ -92,18 +92,28 @@ export const ArtistSearchForm = ({
 
       <form.Subscribe
         selector={(state) => [state.canSubmit, state.isSubmitting]}
-        children={([canSubmit, isSubmitting]) => (
-          <Button
-            size="lg"
-            disabled={!canSubmit}
-            isLoading={isSubmitting}
-            type="submit"
-            className="sm:basis-1/5 basis-1/7"
-          >
-            <span className="hidden sm:block">{t("search.searchButton")}</span>
-            <Search className="size-4 " />
-          </Button>
-        )}
+        children={([canSubmit, isSubmitting]) => {
+          const normalizedQueryProp = (query ?? "").trim().toLowerCase();
+          const normalizedFormQuery = form.state.values.query
+            .trim()
+            .toLowerCase();
+          const isSearchSubmitRedundant =
+            normalizedQueryProp === normalizedFormQuery;
+          return (
+            <Button
+              size="lg"
+              disabled={!canSubmit || isSearchSubmitRedundant}
+              isLoading={isSubmitting}
+              type="submit"
+              className="sm:basis-1/5 basis-1/7"
+            >
+              <span className="hidden sm:block">
+                {t("search.searchButton")}
+              </span>
+              <Search className="size-4 " />
+            </Button>
+          );
+        }}
       />
     </form>
   );
