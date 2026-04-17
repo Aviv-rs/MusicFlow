@@ -27,6 +27,9 @@ export const Route = createFileRoute("/search")({
   },
   loaderDeps: ({ search }) => [search.query],
   loader: async ({ context, deps }) => {
+    if (!deps[0]) {
+      return { artistSearchResult: [] };
+    }
     const data = await context.queryClient.ensureQueryData(
       artistSearchQueryOptions(deps[0]),
     );
