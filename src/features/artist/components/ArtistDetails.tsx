@@ -26,6 +26,7 @@ const ArtistDetails = ({ artist }: { artist: Artist }) => {
           <div className="w-full sm:w-1/2 basis-1/2 mx-auto">
             {artist.image && (
               <img
+                id="artist-image"
                 sizes="(max-width: 600px) 100vw, 600px"
                 srcSet={`${artist.imageSmall} 400w, ${artist.imageMedium} 800w, ${artist.image} 1200w`}
                 src={artist.image}

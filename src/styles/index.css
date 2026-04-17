@@ -415,3 +415,7 @@
     @apply font-sans;
   }
 }
+
+#artist-image {
+  view-transition-name: artist-image;
+}

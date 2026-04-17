@@ -16,6 +16,7 @@ const router = createRouter({
   routeTree,
   defaultPreload: "viewport",
   defaultPendingComponent: DefaultPending,
+  defaultViewTransition: true,
 });
 
 declare module "@tanstack/react-router" {

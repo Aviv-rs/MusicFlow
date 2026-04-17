@@ -9,8 +9,9 @@ export function ArtistSearchPreview({ artist }: { artist: ArtistPreview }) {
   const location = useLocation();
   return (
     <Card className="relative w-full max-w-sm pt-0">
-      <div className="absolute inset-0 z-30 aspect-video bg-black/35" />
+      <div className="absolute inset-0 z-30 aspect-video" />
       <img
+        id="artist-image"
         src={artist.image}
         alt="Event cover"
         className="relative z-20 aspect-video w-full object-cover object-top"
