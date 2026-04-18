@@ -45,6 +45,15 @@ bun run lint
 
 Prettier and ESLint run automatically on staged files via a Husky pre-commit hook (configured with `lint-staged`).
 
+## GitHub Pages
+
+This project is deployed to GitHub Pages using the `gh-pages` package. Make sure to set the base URL in the `vite.config.ts` file to match your repository name.
+
+```bash
+# Deploy to GitHub Pages
+bun run deploy
+```
+
 ## Architecture & Design Decisions
 
 See [ARCHITECTURE.md](./ARCHITECTURE.md) for a detailed breakdown of the technical decisions, folder structure, and patterns used throughout the project.

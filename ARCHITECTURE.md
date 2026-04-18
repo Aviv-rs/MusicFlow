@@ -64,3 +64,7 @@ TanStack Router's `autoCodeSplitting: true` splits each route into its own chunk
 ### i18n from day one
 
 All strings go through `react-i18next` with typed keys. Even with a single locale, it keeps copy out of component code and makes adding languages trivial later.
+
+### View transitions
+
+View transitions are used to animate the artist search preview and artist details page. Utilizing the modern browser API this allows for a smooth transition animation between pages with minimal setup and no additional dependencies.
