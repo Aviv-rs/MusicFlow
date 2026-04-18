@@ -1,7 +1,7 @@
 import { useState, type CSSProperties } from "react";
 import { Button } from "./ui/button";
 import { useTranslation } from "react-i18next";
-import { cn } from "@/lib/utils";
+import { cn, isMobile } from "@/lib/utils";
 
 export const FoldableText = ({
   text,
@@ -20,7 +20,14 @@ export const FoldableText = ({
     : `line-clamp-[var(--line-clamp-count)]`;
 
   return (
-    <div className="relative">
+    <div
+      role={isMobile() ? "button" : "none"}
+      onClick={() => {
+        if (isMobile()) {
+          setIsExpanded(!isExpanded);
+        }
+      }}
+    >
       <p
         className={cn(textClassName, className)}
         style={{ "--line-clamp-count": maxLines } as CSSProperties}
@@ -28,7 +35,7 @@ export const FoldableText = ({
         {text}
       </p>
       <Button
-        className="underline hover:bg-transparent inline-block p-0"
+        className="underline dark:hover:bg-transparent hover:bg-transparent inline-block p-0"
         variant="ghost"
         size="sm"
         onClick={() => setIsExpanded(!isExpanded)}
