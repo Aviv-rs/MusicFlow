@@ -14,7 +14,7 @@ export const ArtistSearchForm = ({
 }: {
   query?: string;
   className?: string;
-  onSubmit: (query: string) => void;
+  onSubmit: (query: string) => Promise<void>;
 }) => {
   const { t } = useTranslation();
 
@@ -37,7 +37,7 @@ export const ArtistSearchForm = ({
     validators: {
       onChange: formSchema,
       onSubmitAsync: async ({ value: formValues }) => {
-        onSubmit(formValues.query);
+        await onSubmit(formValues.query);
         return null;
       },
     },
@@ -107,10 +107,14 @@ export const ArtistSearchForm = ({
               type="submit"
               className="sm:basis-1/5 basis-1/7"
             >
-              <span className="hidden sm:block">
-                {t("search.searchButton")}
-              </span>
-              <Search className="size-4 " />
+              {!isSubmitting && (
+                <>
+                  <span className="hidden sm:block">
+                    {t("search.searchButton")}
+                  </span>{" "}
+                  <Search className="size-4 " />
+                </>
+              )}
             </Button>
           );
         }}
