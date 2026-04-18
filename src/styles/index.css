@@ -419,4 +419,9 @@
 #artist-image {
   view-transition-name: artist-image;
   border-radius: var(--radius-2xl);
+
+  &.artist-search-preview {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
 }

@@ -14,7 +14,7 @@ export function ArtistSearchPreview({ artist }: { artist: ArtistPreview }) {
         id="artist-image"
         src={artist.image}
         alt="Event cover"
-        className="relative z-20 aspect-video w-full object-cover object-top"
+        className="artist-search-preview relative z-20 aspect-video w-full object-cover object-top"
       />
       <CardHeader>
         <CardTitle>{artist.name}</CardTitle>
