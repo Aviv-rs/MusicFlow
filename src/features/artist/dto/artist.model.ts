@@ -20,3 +20,5 @@ export interface Artist extends ArtistPreview {
   genre: string;
   topSongs: Song[];
 }
+
+export type ArtistDetailsError = "topSongsError" | "unknown";

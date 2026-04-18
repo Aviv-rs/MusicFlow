@@ -1,7 +1,12 @@
 import axios from "axios";
 import type { ArtistDto } from "../dto/artist.dto";
 import type { SongDto } from "../dto/artist.dto";
-import type { Artist, ArtistPreview, Song } from "../dto/artist.model";
+import type {
+  Artist,
+  ArtistDetailsError,
+  ArtistPreview,
+  Song,
+} from "../dto/artist.model";
 import {
   transformArtist,
   transformArtistPreview,
@@ -27,7 +32,11 @@ export const artistApi = {
   },
   getArtistDetails: async (
     artistId: string,
-  ): Promise<{ artist: Artist | null }> => {
+  ): Promise<{
+    artist: Artist | null;
+    errorType?: ArtistDetailsError;
+    error?: Error;
+  }> => {
     const artistResponsePromise = axios.get<{ artists: ArtistDto[] }>(
       `${BASE_URL}/artist-mb.php?i=${artistId}`,
     );
@@ -47,20 +56,30 @@ export const artistApi = {
     }
     const artist = artistResponse.data.artists[0];
 
-    return { artist: transformArtist(artist, topSongsResponse.songs) };
+    return {
+      artist: transformArtist(artist, topSongsResponse.songs),
+      ...(topSongsResponse.error
+        ? { errorType: "topSongsError", error: topSongsResponse.error }
+        : {}),
+    };
   },
   getTopSongsForArtist: async (
     artistId: string,
-  ): Promise<{ songs: Song[] }> => {
-    const response = await axios.get<{ track: SongDto[] }>(
-      `${BASE_URL}/track-top10-mb.php?s=${artistId}`,
-    );
+  ): Promise<{ songs: Song[]; error?: Error }> => {
+    try {
+      const response = await axios.get<{ track: SongDto[] }>(
+        `${BASE_URL}/track-top10-mb.php?s=${artistId}`,
+      );
 
-    if (!response.data.track || response.data.track.length === 0) {
-      return { songs: [] };
+      if (!response.data.track || response.data.track.length === 0) {
+        return { songs: [] };
+      }
+      const songs = response.data.track.map(transformSong);
+
+      return { songs };
+    } catch (error: unknown) {
+      console.error(error);
+      return { songs: [], error: error as Error };
     }
-    const songs = response.data.track.map(transformSong);
-
-    return { songs };
   },
 };

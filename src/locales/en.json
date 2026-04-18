@@ -26,6 +26,8 @@
     "backToSearch": "Search more artists",
     "goBack": "Go back",
     "artistDetailsTitle": "Meet the artist",
-    "artistDetailsNotFound": "We couldn't find the artist you're looking for :("
+    "artistDetailsNotFound": "We couldn't find the artist you're looking for :(",
+    "artistDetailsError": "An error occurred while loading the artist details, please try again later",
+    "topSongsError": "An error occurred while loading the artist's top songs"
   }
 }
